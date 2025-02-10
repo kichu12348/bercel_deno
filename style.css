@@ -1,0 +1,125 @@
+:root {
+  --primary: #FF0090;
+  --background: #0F111A;
+  --secondary: #00E0FF;
+  --card: #151827;
+  --textPrimary: #EAF0FF;
+  --textSecondary: #8A94B9;
+  --success: #00FF94;
+  --error: #FF3D3D;
+  --accent: #FFC300;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: var(--background);
+  color: var(--textPrimary);
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+#cloneForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 90%;
+  max-width: 600px;
+  background: var(--card);
+  padding: 40px;
+  border-radius: 4px;
+  box-shadow: 0 2px 15px rgba(255, 0, 144, 0.2);
+  color: var(--textPrimary);
+}
+
+#gitUrl {
+  padding: 15px;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  background: var(--background);
+  color: var(--textPrimary);
+  width: 100%;
+  font-size: 1.1rem;
+  box-sizing: border-box;
+}
+
+#gitUrl::placeholder {
+  color: var(--textSecondary);
+}
+
+button {
+  padding: 15px;
+  border: none;
+  border-radius: 20px;
+  background: var(--primary);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: var(--secondary);
+}
+
+/* Alert box styling */
+.alert {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 35px;
+  display: none;
+  text-align: center;
+  width: 90%;
+  max-width: 600px;
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.alert.success {
+  background: var(--success);
+  box-shadow: 0 0 80px 0 rgba(0, 255, 0, 0.5);
+}
+.alert.error {
+  background: var(--error);
+  box-shadow: 0 0 85px 0 rgba(255,0,0,0.5);
+  text-shadow: 0 0 5px rgba(255,0,0,0.5);
+}
+
+@media (max-width: 768px) {
+  #cloneForm {
+    padding: 25px;
+    margin: 15px;
+    width: 70%;
+  }
+  
+  #gitUrl, button {
+    font-size: 1rem;
+    padding: 12px;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  #cloneForm {
+    padding: 20px;
+  }
+  
+  .alert {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+}

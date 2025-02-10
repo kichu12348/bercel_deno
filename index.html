@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bercel</title>
+    <link rel="icon" href="/index/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/index/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <form id="cloneForm">
+        <input id="gitUrl" type="text" placeholder="Paste Git URL" />
+        <button type="submit">Clone</button>
+      </form>
+    </div>
+    <div class="alert" id="alert" style="display: none"></div>
+    <script>
+      document
+        .getElementById("cloneForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const gitUrl = document.getElementById("gitUrl").value.trim();
+          const alertBox = document.getElementById("alert");
+
+          if (!/^https?:\/\//.test(gitUrl)) {
+            alertBox.textContent = "Invalid URL!";
+            alertBox.className = "alert error";
+            alertBox.style.display = "block";
+            return;
+          }
+          alertBox.style.display = "none";
+          const res = await fetch("/clone", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ gitUrl }),
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            const content = data.url? `Already Deployed! Open: ${window.location.origin+"/"+data.url}` : data.error || "Something went wrong!";
+            alertBox.textContent = content;
+            const href = window.location.origin + "/" + data.url;
+            if(data.url) alertBox.onclick = () => window.open(href, "_blank");
+            alertBox.className = "alert error";
+            alertBox.style.display = "block";
+          } else {
+            const href = window.location.origin + "/" + data.url;
+            alertBox.textContent = `Deployed! Open: ${href}`;
+            alertBox.onclick = () => window.open(href, "_blank");
+            alertBox.className = "alert success";
+            alertBox.style.display = "block";
+          }
+        });
+    </script>
+  </body>
+</html>
